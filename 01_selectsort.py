@@ -25,10 +25,10 @@ def check_file(filename_to_check):
     except:
         return False
         
-def read_file_into_list(filename):
+def read_file_into_enum_list(filename):
     try:
         f = open(filename, "r")
-        result = [str for str in f]
+        result = [(itr, item) for itr, item in enumerate(f)]
         return result
     except Exception:
         eprint("Fatal error with code 0001")
@@ -44,5 +44,5 @@ if __name__ == "__main__":
         print_help()
         exit()
     
-    lst = read_file_into_list(sys.argv[1])
+    lst = read_file_into_enum_list(sys.argv[1])
     eprint(lst)
