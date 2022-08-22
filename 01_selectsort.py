@@ -1,12 +1,15 @@
 import sys
 
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
 def print_help():
-    print("This is a help message")
-    print("Use program with just one argument: filename to sort")
-    print("Example:")
-    print("01_selectsort.py sort_this_file.txt > out.txt")
-    print("It will sort content of file sort_this_file.txt and place result in the out.txt")
-    print("So... Good Luck!")
+    eprint("This is a help message")
+    eprint("Use program with just one argument: filename to sort")
+    eprint("Example:")
+    eprint("01_selectsort.py sort_this_file.txt > out.txt")
+    eprint("It will sort content of file sort_this_file.txt and place result in the out.txt")
+    eprint("So... Good Luck!")
 
 def arguments_validation():
     if len(sys.argv) != 2:
@@ -28,12 +31,12 @@ def read_file_into_list(filename):
         result = [str for str in f]
         return result
     except Exception:
-        print("Fatal error with code 0001")
+        eprint("Fatal error with code 0001")
         exit()
     
 
 if __name__ == "__main__":
-    print("01_selectsort")
+    eprint("01_selectsort")
     if not arguments_validation():
         print_help()
         exit()
@@ -42,4 +45,4 @@ if __name__ == "__main__":
         exit()
     
     lst = read_file_into_list(sys.argv[1])
-    print(lst)
+    eprint(lst)
