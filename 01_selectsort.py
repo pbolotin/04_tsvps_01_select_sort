@@ -1,4 +1,5 @@
 import sys
+import json
 
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
@@ -66,7 +67,19 @@ def output_result(enum_list):
     for n, s in enum_list:
         if sys.stdout.isatty():
             eprint(f"[{n}]:", end="", flush=True)
-        print(s, flush=True)
+            print(s, flush=True)
+        else:
+            print(s)
+
+def load_config_json():
+    cfg = None
+    if check_file("01_selectsort_cfg.json"):
+        f = open("01_selectsort_cfg.json", "r")
+        cfg = json.load(f)
+        f.close()
+    else: #defaul config
+        cfg = {"SortDirection":"a"}
+    return cfg
     
 if __name__ == "__main__":
     eprint("01_selectsort")
@@ -77,7 +90,9 @@ if __name__ == "__main__":
         print_help()
         exit()
     
+    cfg = load_config_json()
+    
     enm_lst = read_file_into_enum_list(sys.argv[1])
     show_input(enm_lst)
-    selection_sort_enum_list_and_comment_steps(enm_lst)
+    selection_sort_enum_list_and_comment_steps(enm_lst, cfg["SortDirection"])
     output_result(enm_lst)
